@@ -53,9 +53,9 @@ fun TextChip(
                 shape = shape
             )
             .clip(shape = shape)
-            .clickable {
-                onChecked(!isSelected)
-            }
+//            .clickable {
+//                onChecked(!isSelected)
+//            }
             .padding(4.dp)
     ) {
         iconId?.let { painterResource(id = it) }?.let {

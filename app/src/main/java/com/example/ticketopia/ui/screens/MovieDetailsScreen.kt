@@ -39,6 +39,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.ticketopia.R
 import com.example.ticketopia.ui.composable.DefaultButton
+import com.example.ticketopia.ui.composable.MovieGenres
 import com.example.ticketopia.ui.composable.SpacerVertical16
 import com.example.ticketopia.ui.composable.TextChip
 import com.example.ticketopia.ui.composable.TextHeader
@@ -126,25 +127,7 @@ private fun MovieDetailsContent(state: MovieDetailsUiState) {
                     // SpacerVertical16()
                     TextHeader(text = "Fantastic Beasts: The Secrets Of Dumbledore")
                     SpacerVertical16()
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        TextChip(iconId = null,
-                            tintColor = Color.Red,
-                            isSelected = false,
-                            text = "Fantasy",
-                            selectedColor = Color.DarkGray,
-                            onChecked = {})
-
-                        TextChip(iconId = null,
-                            tintColor = Color.Red,
-                            isSelected = false,
-                            text = "Adventure",
-                            selectedColor = Color.DarkGray,
-                            onChecked = {})
-                    }
+                    MovieGenres()
                     SpacerVertical16()
                     LazyRow(
                         horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -173,6 +156,7 @@ private fun MovieDetailsContent(state: MovieDetailsUiState) {
 
     }
 }
+
 
 @Composable
 fun ToolBar() {
