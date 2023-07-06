@@ -12,6 +12,6 @@ data class HomeUiState(
 )
 
 data class ChipUiState(
-    val title: String,
+    val title: String="",
     val isSelected: Boolean = false
 )

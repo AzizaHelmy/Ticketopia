@@ -2,20 +2,14 @@ package com.example.ticketopia.ui.screens
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.animation.Crossfade
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,16 +17,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.BlurredEdgeTreatment
-import androidx.compose.ui.draw.blur
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.rememberAsyncImagePainter
 import com.example.ticketopia.R
-import com.example.ticketopia.ui.composable.GradientOverlay
+import com.example.ticketopia.ui.interactions.HomeScreenInteractionsListener
 import com.example.ticketopia.ui.composable.MovieGenres
 import com.example.ticketopia.ui.composable.SpacerHorizontal8
 import com.example.ticketopia.ui.composable.SpacerVertical16
@@ -40,7 +30,7 @@ import com.example.ticketopia.ui.composable.SpacerVertical32
 import com.example.ticketopia.ui.composable.TextChip
 import com.example.ticketopia.ui.composable.TextHeader
 import com.example.ticketopia.ui.composable.ViewPager
-import com.example.ticketopia.ui.theme.Orange
+import com.example.ticketopia.ui.theme.White
 import com.example.ticketopia.ui.viewmodel.HomeViewModel
 import com.example.ticketopia.ui.viewmodel.state.HomeUiState
 
@@ -51,13 +41,13 @@ import com.example.ticketopia.ui.viewmodel.state.HomeUiState
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
-    HomeContent(state)
+    HomeContent(state, viewModel)
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
-private fun HomeContent(homeUiState: HomeUiState) {
+private fun HomeContent(homeUiState: HomeUiState, listener: HomeScreenInteractionsListener) {
     Box(modifier = Modifier.fillMaxSize()) {
 
         Column(
@@ -71,17 +61,17 @@ private fun HomeContent(homeUiState: HomeUiState) {
                 horizontalArrangement = Arrangement.Center
             ) {
                 TextChip(
-                    iconId = null,
-                    tintColor = Orange,
-                    isSelected = false,
-                    text = "Now Showing",
-                    onChecked = {})
+                    isSelected = homeUiState.nowShowingChip.isSelected,
+                    text = homeUiState.nowShowingChip.title,
+                    isEnabled = true,
+                    doWhenClick = listener::onClickNowShowing
+                )
                 TextChip(
-                    iconId = null,
-                    tintColor = Orange,
-                    isSelected = false,
-                    text = "Now Showing",
-                    onChecked = {})
+                    isSelected = homeUiState.comingSoonChip.isSelected,
+                    text = homeUiState.comingSoonChip.title,
+                    isEnabled = true,
+                    doWhenClick = listener::onClickComingSoon
+                )
             }
             SpacerVertical16()
             ViewPager(images = homeUiState.moviesUrl)
@@ -109,5 +99,14 @@ private fun HomeContent(homeUiState: HomeUiState) {
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewHomeScreen() {
-    HomeContent(HomeUiState())
+    HomeContent(HomeUiState(), listener = object : HomeScreenInteractionsListener {
+        override fun onClickNowShowing() {
+
+        }
+
+        override fun onClickComingSoon() {
+
+        }
+
+    })
 }

@@ -18,18 +18,16 @@ fun MovieGenres() {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        TextChip(iconId = null,
-            tintColor = Color.Red,
+        TextChip(
             isSelected = false,
             text = "Fantasy",
-            selectedColor = Color.DarkGray,
-            onChecked = {})
+            backgroundColor = Color.DarkGray
+        )
 
-        TextChip(iconId = null,
-            tintColor = Color.Red,
+        TextChip(
             isSelected = false,
             text = "Adventure",
-            selectedColor = Color.DarkGray,
-            onChecked = {})
+            backgroundColor = Color.DarkGray,
+        )
     }
 }

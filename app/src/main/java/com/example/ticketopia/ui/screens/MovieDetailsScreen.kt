@@ -124,7 +124,6 @@ private fun MovieDetailsContent(state: MovieDetailsUiState) {
                             Text(text = "IMDb")
                         }
                     }
-                    // SpacerVertical16()
                     TextHeader(text = "Fantastic Beasts: The Secrets Of Dumbledore")
                     SpacerVertical16()
                     MovieGenres()
@@ -162,11 +161,10 @@ private fun MovieDetailsContent(state: MovieDetailsUiState) {
 fun ToolBar() {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         Image(painter = painterResource(id = R.drawable.icon_exit), contentDescription = "")
-        TextChip(iconId = R.drawable.icon_time,
-            tintColor = Color.DarkGray,
+        TextChip(
             isSelected = false,
             text = "2h 23m",
-            onChecked = {})
+           )
     }
 }
 
