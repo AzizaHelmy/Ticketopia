@@ -25,10 +25,9 @@ import com.example.ticketopia.ui.theme.Orange
  */
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
-fun DefaultButton(text: String, icon: Painter?) {
+fun DefaultButton(text: String, icon: Painter?, modifier: Modifier = Modifier) {
     Button(
-        onClick = {}, modifier = Modifier
-            .width(160.dp)
+        onClick = {}, modifier = modifier
             .height(54.dp),
 
         shape = RoundedCornerShape(32.dp),

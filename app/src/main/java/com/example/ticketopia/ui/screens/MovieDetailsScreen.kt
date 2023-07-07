@@ -4,12 +4,15 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,7 +22,8 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.AbsoluteRoundedCornerShape
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Button
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -39,10 +43,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.ticketopia.R
 import com.example.ticketopia.ui.composable.DefaultButton
+import com.example.ticketopia.ui.composable.ExitIcon
 import com.example.ticketopia.ui.composable.MovieGenres
 import com.example.ticketopia.ui.composable.SpacerVertical16
 import com.example.ticketopia.ui.composable.TextChip
 import com.example.ticketopia.ui.composable.TextHeader
+import com.example.ticketopia.ui.theme.Orange
+import com.example.ticketopia.ui.theme.TransGray
+import com.example.ticketopia.ui.theme.White
 import com.example.ticketopia.ui.viewmodel.MovieDetailsViewModel
 import com.example.ticketopia.ui.viewmodel.state.CharacterUiState
 import com.example.ticketopia.ui.viewmodel.state.MovieDetailsUiState
@@ -60,49 +68,41 @@ fun MovieDetailsScreen(viewModel: MovieDetailsViewModel = hiltViewModel()) {
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 private fun MovieDetailsContent(state: MovieDetailsUiState) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        Box(
-            modifier = Modifier.align(Alignment.TopCenter)
-        ) {
-            ToolBar()
-        }
-        Box(
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .height(370.dp)
-        ) {
-
-            Button(onClick = { /*TODO*/ }, modifier = Modifier.align(Alignment.Center)) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier.fillMaxHeight(0.4f)) {
+            Box(contentAlignment = Alignment.Center) {
                 Image(
-                    painter = painterResource(id = R.drawable.icon_video_play),
-                    contentDescription = ""
+                    painter = painterResource(id = R.drawable.movie_1),
+                    contentDescription = "Movie Image",
+                    modifier = Modifier.fillMaxWidth(),
+                    contentScale = ContentScale.FillWidth,
+                    alignment = Alignment.Center
+                )
+                Icon(
+                    painter = painterResource(id = R.drawable.icon_play),
+                    contentDescription = "Play Icon",
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .background(Orange)
+                        .padding(12.dp),
+                    tint = White
                 )
             }
-            Image(
-                painter = painterResource(id = R.drawable.movie_1),
-                contentDescription = "Movie Image",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(370.dp),
-                contentScale = ContentScale.FillWidth,
-                alignment = Alignment.Center
-            )
+            ToolBar()
         }
-        Box(modifier = Modifier.align(Alignment.BottomCenter)) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(480.dp)
-                    .background(
-                        shape = AbsoluteRoundedCornerShape(32.dp, 32.dp, 0.dp, 0.dp),
-                        color = Color.White
-                    )
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .aspectRatio(3 / 4f)
+                .clip(
+                    shape = AbsoluteRoundedCornerShape(32.dp, 32.dp, 0.dp, 0.dp),
+                )
+                .background(
+                    color = Color.White
+                ),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
                     SpacerVertical16()
                     Row(
                         modifier = Modifier
@@ -129,6 +129,9 @@ private fun MovieDetailsContent(state: MovieDetailsUiState) {
                     MovieGenres()
                     SpacerVertical16()
                     LazyRow(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(70.dp),
                         horizontalArrangement = Arrangement.spacedBy(16.dp),
                         contentPadding = PaddingValues(horizontal = 16.dp)
                     ) {
@@ -146,27 +149,38 @@ private fun MovieDetailsContent(state: MovieDetailsUiState) {
                     Spacer(modifier = Modifier.weight(1f))
                     DefaultButton(
                         text = stringResource(R.string.booking),
-                        icon = painterResource(id = R.drawable.icon_booking)
+                        icon = painterResource(id = R.drawable.icon_booking),
+                        modifier = Modifier.padding(bottom = 40.dp)
                     )
-                    SpacerVertical16()
                 }
-            }
-        }
-
     }
 }
 
 
 @Composable
-fun ToolBar() {
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-        Image(painter = painterResource(id = R.drawable.icon_exit), contentDescription = "")
+private fun ToolBar() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        ExitIcon()
         TextChip(
             isSelected = false,
+            isEnabled = false,
             text = "2h 23m",
-           )
+            unSelectedBorderColor = Color.Transparent,
+            unSelectedTextColor = White,
+            iconId = R.drawable.icon_time,
+            modifier = Modifier
+                .clip(shape = RoundedCornerShape(16.dp))
+                .background(TransGray)
+                .border(0.dp, Color.Transparent)
+        )
     }
 }
+
 
 @Composable
 fun CharacterItem(character: CharacterUiState) {
