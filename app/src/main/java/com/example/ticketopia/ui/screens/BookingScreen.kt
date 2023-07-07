@@ -32,10 +32,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.ticketopia.R
 import com.example.ticketopia.ui.composable.CalenderItem
 import com.example.ticketopia.ui.composable.DefaultButton
@@ -51,14 +54,12 @@ import com.example.ticketopia.ui.viewmodel.state.BookingUiState
 /**
  * Created by Aziza Helmy on 7/4/2023.
  */
-@RequiresApi(Build.VERSION_CODES.Q)
 @Composable
-fun BookingScreen(viewModel: BookingViewModel = hiltViewModel()) {
+fun BookingScreen(navController: NavController, viewModel: BookingViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
     BookingContent(bookingUiState = state)
 }
 
-@RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 private fun BookingContent(bookingUiState: BookingUiState) {
     Column(
@@ -215,9 +216,8 @@ private fun SeatStates(text: String, color: Color) {
 }
 
 
-@RequiresApi(Build.VERSION_CODES.Q)
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewBookingScreen() {
-    BookingScreen()
+    BookingScreen(NavHostController(LocalContext.current))
 }

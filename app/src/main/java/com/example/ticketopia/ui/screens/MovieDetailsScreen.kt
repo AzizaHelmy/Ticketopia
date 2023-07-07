@@ -1,7 +1,5 @@
 package com.example.ticketopia.ui.screens
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,7 +21,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.AbsoluteRoundedCornerShape
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -33,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -40,15 +38,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.ticketopia.R
 import com.example.ticketopia.ui.composable.DefaultButton
 import com.example.ticketopia.ui.composable.ExitIcon
+import com.example.ticketopia.ui.composable.IconWithCircularShape
 import com.example.ticketopia.ui.composable.MovieGenres
 import com.example.ticketopia.ui.composable.SpacerVertical16
 import com.example.ticketopia.ui.composable.TextChip
 import com.example.ticketopia.ui.composable.TextHeader
-import com.example.ticketopia.ui.theme.Orange
+import com.example.ticketopia.ui.navigation.navigateToHomeScreen
 import com.example.ticketopia.ui.theme.TransGray
 import com.example.ticketopia.ui.theme.White
 import com.example.ticketopia.ui.viewmodel.MovieDetailsViewModel
@@ -58,16 +59,19 @@ import com.example.ticketopia.ui.viewmodel.state.MovieDetailsUiState
 /**
  * Created by Aziza Helmy on 7/4/2023.
  */
-@RequiresApi(Build.VERSION_CODES.Q)
 @Composable
-fun MovieDetailsScreen(viewModel: MovieDetailsViewModel = hiltViewModel()) {
+fun MovieDetailsScreen(
+    navController: NavController,
+    viewModel: MovieDetailsViewModel = hiltViewModel()
+) {
     val state by viewModel.state.collectAsState()
-    MovieDetailsContent(state)
+    MovieDetailsContent(state) {
+        navController.navigateToHomeScreen()
+    }
 }
 
-@RequiresApi(Build.VERSION_CODES.Q)
 @Composable
-private fun MovieDetailsContent(state: MovieDetailsUiState) {
+private fun MovieDetailsContent(state: MovieDetailsUiState, onClickBookingIcon: () -> Unit) {
     Column(modifier = Modifier.fillMaxSize()) {
         Box(modifier = Modifier.fillMaxHeight(0.4f)) {
             Box(contentAlignment = Alignment.Center) {
@@ -78,15 +82,7 @@ private fun MovieDetailsContent(state: MovieDetailsUiState) {
                     contentScale = ContentScale.FillWidth,
                     alignment = Alignment.Center
                 )
-                Icon(
-                    painter = painterResource(id = R.drawable.icon_play),
-                    contentDescription = "Play Icon",
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .background(Orange)
-                        .padding(12.dp),
-                    tint = White
-                )
+                IconWithCircularShape(painter = painterResource(id = R.drawable.icon_play))
             }
             ToolBar()
         }
@@ -157,6 +153,7 @@ private fun MovieDetailsContent(state: MovieDetailsUiState) {
 }
 
 
+
 @Composable
 private fun ToolBar() {
     Row(
@@ -196,9 +193,8 @@ fun CharacterItem(character: CharacterUiState) {
 
 }
 
-@RequiresApi(Build.VERSION_CODES.Q)
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewMovieContent() {
-    MovieDetailsContent(MovieDetailsUiState())
+    MovieDetailsScreen(NavHostController(LocalContext.current))
 }

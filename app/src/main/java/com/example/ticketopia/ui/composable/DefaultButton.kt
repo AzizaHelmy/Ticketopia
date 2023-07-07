@@ -1,10 +1,7 @@
 package com.example.ticketopia.ui.composable
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -23,7 +20,7 @@ import com.example.ticketopia.ui.theme.Orange
 /**
  * Created by Aziza Helmy on 7/5/2023.
  */
-@RequiresApi(Build.VERSION_CODES.Q)
+
 @Composable
 fun DefaultButton(text: String, icon: Painter?, modifier: Modifier = Modifier) {
     Button(
