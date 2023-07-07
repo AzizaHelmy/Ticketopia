@@ -8,7 +8,8 @@ data class HomeUiState(
     val comingSoonChip: ChipUiState = ChipUiState("", false),
     val moviesUrl: List<String> = emptyList(),
     val duration: String = "2h 23m",
-    val movieName: String = "Fantastic Beasts: The \nSecrets of Dumbledore"
+    val movieName: String = "Fantastic Beasts: The \nSecrets of Dumbledore",
+    val currentImage: String = ""
 )
 
 data class ChipUiState(
