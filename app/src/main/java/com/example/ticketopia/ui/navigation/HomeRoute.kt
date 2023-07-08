@@ -12,7 +12,7 @@ import com.example.ticketopia.ui.screens.home.HomeScreen
 
 private const val ROUTE = "homeScreen"
 
-fun NavController.navigateToMovieDetailsScreen() {
+fun NavController.navigateToHomeScreen() {
     navigate(ROUTE)
 }
 

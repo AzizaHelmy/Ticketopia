@@ -1,5 +1,6 @@
 package com.example.ticketopia.ui.navigation
 
+import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -11,10 +12,11 @@ import com.example.ticketopia.ui.screens.MovieDetailsScreen
  */
 private const val ROUTE = "movieDetailsRoute"
 
-fun NavController.navigateToHomeScreen() {
+
+fun NavController.navigateToMovieDetailsScreen() {
+    Log.e("TAG", "navigateToMovieDetailsScreen: ", )
     navigate(ROUTE)
 }
-
 fun NavGraphBuilder.movieDetailsRoute(navHostController: NavHostController) {
     composable(ROUTE) { MovieDetailsScreen(navHostController) }
 }

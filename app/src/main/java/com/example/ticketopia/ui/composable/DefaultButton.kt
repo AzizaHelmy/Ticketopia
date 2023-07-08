@@ -22,9 +22,14 @@ import com.example.ticketopia.ui.theme.Orange
  */
 
 @Composable
-fun DefaultButton(text: String, icon: Painter?, modifier: Modifier = Modifier) {
+fun DefaultButton(
+    text: String,
+    icon: Painter?,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
+) {
     Button(
-        onClick = {}, modifier = modifier
+        onClick =onClick, modifier = modifier
             .height(54.dp),
 
         shape = RoundedCornerShape(32.dp),

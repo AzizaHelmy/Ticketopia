@@ -1,5 +1,7 @@
 package com.example.ticketopia.ui.screens.home
 
+import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,30 +39,38 @@ import com.example.ticketopia.ui.composable.TextChip
 import com.example.ticketopia.ui.composable.TextHeader
 import com.example.ticketopia.ui.composable.ViewPager
 import com.example.ticketopia.ui.navigation.navigateToMovieDetailsScreen
-import com.example.ticketopia.ui.viewmodel.HomeViewModel
 import com.example.ticketopia.ui.viewmodel.state.HomeUiState
 
 /**
  * Created by Aziza Helmy on 7/4/2023.
  */
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
-    HomeContent(state, viewModel::updateBackgroundImage) {
-        navController.navigateToMovieDetailsScreen()
-    }
+    val pagerState = rememberPagerState(initialPage = 1){state.moviesUrl.size}
+    HomeContent(
+        homeUiState = state,
+        viewModel::updateBackgroundImage,
+        viewModel,
+        pagerState=pagerState,
+        onClickHomeIcon = { navController.navigateToMovieDetailsScreen() })
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun HomeContent(
     homeUiState: HomeUiState,
     onUpdateBackgroundImage: (String) -> Unit,
-    // listener: HomeScreenInteractionsListener,
+    listener: HomeScreenInteractionsListener,
+    pagerState: PagerState,
     onClickHomeIcon: () -> Unit
 ) {
+
+
     Box(modifier = Modifier.fillMaxSize()) {
-        BluredImage(homeUiState)
+        BluredImage(homeUiState,pagerState)
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -73,19 +85,20 @@ private fun HomeContent(
                     isSelected = homeUiState.nowShowingChip.isSelected,
                     text = homeUiState.nowShowingChip.title,
                     isEnabled = true,
-                    //doWhenClick = listener::onClickNowShowing
+                    doWhenClick = listener::onClickNowShowing
                 )
                 TextChip(
                     isSelected = homeUiState.comingSoonChip.isSelected,
                     text = homeUiState.comingSoonChip.title,
                     isEnabled = true,
-                    // doWhenClick = listener::onClickComingSoon
+                    doWhenClick = listener::onClickComingSoon
                 )
             }
             SpacerVertical16()
             ViewPager(
                 images = homeUiState.moviesUrl,
-                onUpdateBackgroundImage = onUpdateBackgroundImage
+                pagerState = pagerState
+               // onUpdateBackgroundImage = onUpdateBackgroundImage
             )
             SpacerVertical32()
             Row {
@@ -101,9 +114,7 @@ private fun HomeContent(
             SpacerVertical16()
             MovieGenres()
             Spacer(modifier = Modifier.weight(1f))
-            BottomNavigation {
-                onClickHomeIcon
-            }
+            BottomNavigation (onClickHomeIcon=  onClickHomeIcon)
         }
     }
 }

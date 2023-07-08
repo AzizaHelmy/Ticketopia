@@ -49,12 +49,13 @@ import com.example.ticketopia.ui.composable.MovieGenres
 import com.example.ticketopia.ui.composable.SpacerVertical16
 import com.example.ticketopia.ui.composable.TextChip
 import com.example.ticketopia.ui.composable.TextHeader
+import com.example.ticketopia.ui.navigation.navigateToBookingScreen
 import com.example.ticketopia.ui.navigation.navigateToHomeScreen
+import com.example.ticketopia.ui.screens.details.CharacterUiState
+import com.example.ticketopia.ui.screens.details.MovieDetailsUiState
 import com.example.ticketopia.ui.theme.TransGray
 import com.example.ticketopia.ui.theme.White
 import com.example.ticketopia.ui.viewmodel.MovieDetailsViewModel
-import com.example.ticketopia.ui.viewmodel.state.CharacterUiState
-import com.example.ticketopia.ui.viewmodel.state.MovieDetailsUiState
 
 /**
  * Created by Aziza Helmy on 7/4/2023.
@@ -65,13 +66,18 @@ fun MovieDetailsScreen(
     viewModel: MovieDetailsViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
-    MovieDetailsContent(state) {
-        navController.navigateToHomeScreen()
-    }
+    MovieDetailsContent(
+        state,
+        onClickBookingIcon = { navController.navigateToBookingScreen() },
+        onClickExitIcon = { navController.navigateToHomeScreen() })
 }
 
 @Composable
-private fun MovieDetailsContent(state: MovieDetailsUiState, onClickBookingIcon: () -> Unit) {
+private fun MovieDetailsContent(
+    state: MovieDetailsUiState,
+    onClickBookingIcon: () -> Unit,
+    onClickExitIcon: () -> Unit
+) {
     Column(modifier = Modifier.fillMaxSize()) {
         Box(modifier = Modifier.fillMaxHeight(0.4f)) {
             Box(contentAlignment = Alignment.Center) {
@@ -84,7 +90,7 @@ private fun MovieDetailsContent(state: MovieDetailsUiState, onClickBookingIcon: 
                 )
                 IconWithCircularShape(painter = painterResource(id = R.drawable.icon_play))
             }
-            ToolBar()
+            ToolBar(onClickExitIcon = onClickExitIcon)
         }
         Column(
             modifier = Modifier
@@ -146,23 +152,23 @@ private fun MovieDetailsContent(state: MovieDetailsUiState, onClickBookingIcon: 
                     DefaultButton(
                         text = stringResource(R.string.booking),
                         icon = painterResource(id = R.drawable.icon_booking),
-                        modifier = Modifier.padding(bottom = 40.dp)
+                        modifier = Modifier.padding(bottom = 40.dp),
+                        onClick = onClickBookingIcon
                     )
                 }
     }
 }
 
 
-
 @Composable
-private fun ToolBar() {
+private fun ToolBar(onClickExitIcon: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        ExitIcon()
+        ExitIcon(onClick = onClickExitIcon)
         TextChip(
             isSelected = false,
             isEnabled = false,

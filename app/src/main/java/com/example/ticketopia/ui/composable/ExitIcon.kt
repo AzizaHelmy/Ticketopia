@@ -1,6 +1,7 @@
 package com.example.ticketopia.ui.composable
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
@@ -17,14 +18,14 @@ import com.example.ticketopia.ui.theme.White
  * Created by Aziza Helmy on 7/7/2023.
  */
 @Composable
-fun ExitIcon(modifier: Modifier=Modifier) {
+fun ExitIcon(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
     Icon(
         painter = painterResource(id = R.drawable.icon_exit),
         contentDescription = "",
         modifier = modifier
             .clip(shape = CircleShape)
             .background(TransGray)
-            .padding(4.dp),
+            .padding(4.dp).clickable { onClick },
         tint = White,
 
         )

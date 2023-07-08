@@ -1,7 +1,6 @@
-package com.example.ticketopia.ui.viewmodel
+package com.example.ticketopia.ui.screens.home
 
 import androidx.lifecycle.ViewModel
-import com.example.ticketopia.ui.interactions.HomeScreenInteractionsListener
 import com.example.ticketopia.ui.viewmodel.state.ChipUiState
 import com.example.ticketopia.ui.viewmodel.state.HomeUiState
 import dagger.hilt.android.lifecycle.HiltViewModel

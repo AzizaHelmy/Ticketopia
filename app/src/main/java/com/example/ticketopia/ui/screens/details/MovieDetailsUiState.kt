@@ -1,4 +1,4 @@
-package com.example.ticketopia.ui.viewmodel.state
+package com.example.ticketopia.ui.screens.details
 
 /**
  * Created by Aziza Helmy on 7/4/2023.

@@ -1,7 +1,5 @@
-package com.example.ticketopia.ui.screens
+package com.example.ticketopia.ui.screens.booking
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -45,6 +43,7 @@ import com.example.ticketopia.ui.composable.DefaultButton
 import com.example.ticketopia.ui.composable.ExitIcon
 import com.example.ticketopia.ui.composable.SeatItem
 import com.example.ticketopia.ui.composable.TimeItem
+import com.example.ticketopia.ui.navigation.navigateToHomeScreen
 import com.example.ticketopia.ui.theme.Gray
 import com.example.ticketopia.ui.theme.Orange
 import com.example.ticketopia.ui.theme.White
@@ -57,11 +56,11 @@ import com.example.ticketopia.ui.viewmodel.state.BookingUiState
 @Composable
 fun BookingScreen(navController: NavController, viewModel: BookingViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
-    BookingContent(bookingUiState = state)
+    BookingContent(bookingUiState = state, onClickBuyTicket = {navController.navigateToHomeScreen()})
 }
 
 @Composable
-private fun BookingContent(bookingUiState: BookingUiState) {
+private fun BookingContent(bookingUiState: BookingUiState, onClickBuyTicket:()->Unit) {
     Column(
         Modifier
             .fillMaxSize()
@@ -190,7 +189,8 @@ private fun BookingContent(bookingUiState: BookingUiState) {
                 }
                 DefaultButton(
                     text = "Buy ticket",
-                    icon = painterResource(id = R.drawable.icon_booking)
+                    icon = painterResource(id = R.drawable.icon_booking),
+                    onClick = onClickBuyTicket
                 )
             }
         }

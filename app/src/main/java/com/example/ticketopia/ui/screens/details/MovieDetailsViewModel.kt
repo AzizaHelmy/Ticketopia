@@ -1,8 +1,8 @@
 package com.example.ticketopia.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.ticketopia.ui.viewmodel.state.CharacterUiState
-import com.example.ticketopia.ui.viewmodel.state.MovieDetailsUiState
+import com.example.ticketopia.ui.screens.details.CharacterUiState
+import com.example.ticketopia.ui.screens.details.MovieDetailsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
