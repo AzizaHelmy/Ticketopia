@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -30,19 +29,17 @@ import coil.compose.rememberAsyncImagePainter
 fun ViewPager(
     images: List<String>,
     modifier: Modifier = Modifier,
-    onUpdateBackgroundImage: ((String) -> Unit?)? = null,
     onClickImage: () -> Unit = {},
     pagerState: PagerState
 ) {
 
     HorizontalPager(
         modifier = modifier,
-       // pageCount = images.size,
+        pageCount = images.size,
         state = pagerState,
         contentPadding = PaddingValues(horizontal = 32.dp),
     ) { currentPage ->
 
-        //onUpdateBackgroundImage?.let { it(images[pagerState.currentPage]) }
 
         val animatedScale by animateFloatAsState(
             targetValue = if (currentPage == pagerState.currentPage) 1f else 0.9f,

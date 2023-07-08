@@ -1,6 +1,5 @@
 package com.example.ticketopia.ui.screens.home
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -49,12 +48,12 @@ import com.example.ticketopia.ui.viewmodel.state.HomeUiState
 @Composable
 fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
-    val pagerState = rememberPagerState(initialPage = 1){state.moviesUrl.size}
+    val pagerState = rememberPagerState(initialPage = 1)
+
     HomeContent(
         homeUiState = state,
-        viewModel::updateBackgroundImage,
-        viewModel,
-        pagerState=pagerState,
+        listener = viewModel,
+        pagerState = pagerState,
         onClickHomeIcon = { navController.navigateToMovieDetailsScreen() })
 }
 
@@ -62,12 +61,10 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
 @Composable
 private fun HomeContent(
     homeUiState: HomeUiState,
-    onUpdateBackgroundImage: (String) -> Unit,
     listener: HomeScreenInteractionsListener,
     pagerState: PagerState,
     onClickHomeIcon: () -> Unit
 ) {
-
 
     Box(modifier = Modifier.fillMaxSize()) {
         BluredImage(homeUiState,pagerState)
@@ -98,7 +95,6 @@ private fun HomeContent(
             ViewPager(
                 images = homeUiState.moviesUrl,
                 pagerState = pagerState
-               // onUpdateBackgroundImage = onUpdateBackgroundImage
             )
             SpacerVertical32()
             Row {
@@ -124,18 +120,17 @@ private fun BottomNavigation(onClickHomeIcon: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(40.dp)
-            .padding(4.dp),
+            .padding(vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceEvenly
+        horizontalArrangement = Arrangement.SpaceAround
     ) {
         IconWithCircularShape(
-            painter = painterResource(id = R.drawable.icon_play),
+            painter = painterResource(id = R.drawable.icon_movie),
             onClick = onClickHomeIcon
         )
-        IconBottomNav(painter = painterResource(id = R.drawable.icon_play))
-        IconBottomNav(painter = painterResource(id = R.drawable.icon_play))
-        IconBottomNav(painter = painterResource(id = R.drawable.icon_play))
+        IconBottomNav(painter = painterResource(id = R.drawable.icon_search))
+        IconBottomNav(painter = painterResource(id = R.drawable.icon_ticket))
+        IconBottomNav(painter = painterResource(id = R.drawable.icon_user))
     }
 }
 

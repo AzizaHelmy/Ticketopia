@@ -22,10 +22,6 @@ class HomeViewModel @Inject constructor() : ViewModel(), HomeScreenInteractionsL
         getMovieDetails()
     }
 
-    fun updateBackgroundImage(currentImage: String) {
-        _state.update { it.copy(currentImage = currentImage) }
-    }
-
     private fun getMovieDetails() {
         _state.update {
             it.copy(
@@ -68,6 +64,6 @@ class HomeViewModel @Inject constructor() : ViewModel(), HomeScreenInteractionsL
                 comingSoonChip = ChipUiState(isSelected = true)
             )
         }
-
     }
+
 }

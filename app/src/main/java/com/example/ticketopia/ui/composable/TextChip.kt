@@ -75,7 +75,7 @@ fun TextChip(
         Text(
             text = text,
             color = textColor,
-            modifier = Modifier.padding(start = 6.dp, end = 6.dp)
+            modifier = modifier.padding(start = 6.dp, end = 6.dp)
         )
     }
 }
