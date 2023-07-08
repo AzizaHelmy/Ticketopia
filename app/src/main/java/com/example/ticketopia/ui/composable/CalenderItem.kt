@@ -17,7 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.ticketopia.ui.theme.Gray
+import androidx.compose.ui.unit.sp
+import com.example.ticketopia.ui.theme.TransGray
 import com.example.ticketopia.ui.theme.White
 import com.example.ticketopia.ui.viewmodel.state.CalenderUiState
 
@@ -29,17 +30,20 @@ fun CalenderItem(calenderUiState: CalenderUiState) {
     Card(
         modifier = Modifier
             .height(60.dp)
-            .width(48.dp),
+            .width(50.dp),
         colors = CardDefaults.cardColors(containerColor = White),
-        border = BorderStroke(1.dp, Gray)
+        border = BorderStroke(1.dp, TransGray)
     ) {
         Column(modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Text(text =calenderUiState.date)
-            Text(text = calenderUiState.day)
+            Text(
+                text = calenderUiState.date,
+                fontSize = 20.sp,
+            )
+            Text(text = calenderUiState.day, color = Color.Gray)
         }
     }
 }

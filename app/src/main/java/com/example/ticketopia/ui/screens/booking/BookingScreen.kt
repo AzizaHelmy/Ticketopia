@@ -153,7 +153,8 @@ private fun BookingContent(bookingUiState: BookingUiState, onClickBuyTicket:()->
                 )
                 .background(
                     color = Color.White
-                ),
+                )
+                .padding(16.dp)
         ) {
             LazyRow(
                 modifier = Modifier
@@ -169,7 +170,7 @@ private fun BookingContent(bookingUiState: BookingUiState, onClickBuyTicket:()->
             LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 16.dp),
+                    .padding(bottom = 16.dp, top = 12.dp),
                 contentPadding = PaddingValues(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {

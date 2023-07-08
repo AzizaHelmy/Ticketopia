@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.ticketopia.ui.theme.Gray
+import com.example.ticketopia.ui.theme.TransGray
 
 /**
  * Created by Aziza Helmy on 7/7/2023.
@@ -19,9 +20,9 @@ fun TimeItem(time: String) {
         text = time,
         modifier = Modifier
             .border(
-                border = BorderStroke(1.dp, Gray),
+                border = BorderStroke(1.dp, TransGray),
                 shape = RoundedCornerShape(16.dp)
             )
-            .padding(horizontal = 8.dp, vertical = 4.dp)
+            .padding(horizontal = 8.dp, vertical = 6.dp)
     )
 }
