@@ -32,8 +32,10 @@ import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -44,7 +46,7 @@ import com.example.ticketopia.ui.composable.ExitIcon
 import com.example.ticketopia.ui.composable.SeatItem
 import com.example.ticketopia.ui.composable.TimeItem
 import com.example.ticketopia.ui.navigation.navigateToHomeScreen
-import com.example.ticketopia.ui.theme.Gray
+import com.example.ticketopia.ui.theme.Adamina
 import com.example.ticketopia.ui.theme.Orange
 import com.example.ticketopia.ui.theme.White
 import com.example.ticketopia.ui.viewmodel.BookingViewModel
@@ -64,7 +66,7 @@ private fun BookingContent(bookingUiState: BookingUiState, onClickBuyTicket:()->
     Column(
         Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(Black)
     ) {
         Column(
             Modifier
@@ -118,7 +120,7 @@ private fun BookingContent(bookingUiState: BookingUiState, onClickBuyTicket:()->
                                 }
                                 else -> {
                                     SeatItem(
-                                        startIconColor = Gray,
+                                        startIconColor = Color.Gray,
                                         endIconColor = White,
                                     )
                                 }
@@ -136,9 +138,9 @@ private fun BookingContent(bookingUiState: BookingUiState, onClickBuyTicket:()->
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                SeatStates(text = "Available", color = Orange)
-                SeatStates(text = "Taken", color = White)
-                SeatStates(text = "Selected", color = Gray)
+                SeatStates(text = stringResource(R.string.available), color = Orange)
+                SeatStates(text = stringResource(R.string.taken), color = White)
+                SeatStates(text = stringResource(R.string.selected), color = Color.Gray)
             }
 
         }
@@ -179,16 +181,19 @@ private fun BookingContent(bookingUiState: BookingUiState, onClickBuyTicket:()->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(vertical = 16.dp, horizontal = 20.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Column() {
-                    Text(text = "$100")
-                    Text(text = "4 tickets")
+                    Text(
+                        text = stringResource(R.string._100), fontFamily = Adamina,
+                        fontSize = 24.sp,
+                    )
+                    Text(text = stringResource(R.string._4_tickets), color = Color.Gray)
                 }
                 DefaultButton(
-                    text = "Buy ticket",
+                    text = stringResource(R.string.buy_ticket),
                     icon = painterResource(id = R.drawable.icon_booking),
                     onClick = onClickBuyTicket
                 )

@@ -62,7 +62,7 @@ private fun HomeContent(
 ) {
 
     Box(modifier = Modifier.fillMaxSize()) {
-        BluredImage(homeUiState,pagerState)
+        BluredImage(homeUiState, pagerState)
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
