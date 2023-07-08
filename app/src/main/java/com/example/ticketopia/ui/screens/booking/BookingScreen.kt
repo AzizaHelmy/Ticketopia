@@ -58,11 +58,13 @@ import com.example.ticketopia.ui.viewmodel.state.BookingUiState
 @Composable
 fun BookingScreen(navController: NavController, viewModel: BookingViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
-    BookingContent(bookingUiState = state, onClickBuyTicket = {navController.navigateToHomeScreen()})
+    BookingContent(
+        bookingUiState = state,
+        onClickBuyTicket = { navController.navigateToHomeScreen() })
 }
 
 @Composable
-private fun BookingContent(bookingUiState: BookingUiState, onClickBuyTicket:()->Unit) {
+private fun BookingContent(bookingUiState: BookingUiState, onClickBuyTicket: () -> Unit) {
     Column(
         Modifier
             .fillMaxSize()
@@ -111,6 +113,7 @@ private fun BookingContent(bookingUiState: BookingUiState, onClickBuyTicket:()->
                                         rotateDegree = 10f
                                     )
                                 }
+
                                 2 -> {
                                     SeatItem(
                                         startIconColor = White,
@@ -118,6 +121,7 @@ private fun BookingContent(bookingUiState: BookingUiState, onClickBuyTicket:()->
                                         rotateDegree = -10f
                                     )
                                 }
+
                                 else -> {
                                     SeatItem(
                                         startIconColor = Color.Gray,
@@ -186,7 +190,7 @@ private fun BookingContent(bookingUiState: BookingUiState, onClickBuyTicket:()->
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Column() {
+                Column {
                     Text(
                         text = stringResource(R.string._100), fontFamily = Adamina,
                         fontSize = 24.sp,
