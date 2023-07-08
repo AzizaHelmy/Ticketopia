@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Ticketopia</string>
     <string name="booking">Booking</string>
+    <string name="_63">63%</string>
+    <string name="rotten_tomatoes">Rotten Tomatoes</string>
+    <string name="_4_10">4/10</string>
+    <string name="ign">IGN</string>
+    <string name="imdb">IMDb</string>
+    <string name="_6_8_10">6.8/10</string>
 </resources>

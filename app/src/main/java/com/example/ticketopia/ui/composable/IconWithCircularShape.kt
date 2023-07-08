@@ -1,6 +1,5 @@
 package com.example.ticketopia.ui.composable
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
@@ -32,7 +31,6 @@ fun IconWithCircularShape(
             .padding(12.dp)
             .clickable {
                 onClick()
-                Log.e("TAG", "IconWithCircularShape: ",)
             },
         tint = White
     )

@@ -1,5 +1,6 @@
 package com.example.ticketopia.ui.composable
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,14 +37,13 @@ fun DefaultButton(
         colors = ButtonDefaults.buttonColors(Orange),
         elevation = ButtonDefaults.buttonElevation(0.dp)
     ) {
-        Row {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             icon?.let {
                 Icon(
                     painter = it,
                     contentDescription = "Booking Icon"
                 )
             }
-            SpacerHorizontal8()
             Text(
                 text = text,
                 fontFamily = Adamina,

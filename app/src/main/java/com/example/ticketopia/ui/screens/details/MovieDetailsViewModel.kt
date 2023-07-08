@@ -1,4 +1,4 @@
-package com.example.ticketopia.ui.viewmodel
+package com.example.ticketopia.ui.screens.details
 
 import androidx.lifecycle.ViewModel
 import com.example.ticketopia.ui.screens.details.CharacterUiState

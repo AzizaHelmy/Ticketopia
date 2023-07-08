@@ -1,4 +1,4 @@
-package com.example.ticketopia.ui.screens
+package com.example.ticketopia.ui.screens.details
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,11 +15,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.AbsoluteRoundedCornerShape
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,6 +40,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.ticketopia.R
+import com.example.ticketopia.ui.composable.CircularImage
 import com.example.ticketopia.ui.composable.DefaultButton
 import com.example.ticketopia.ui.composable.ExitIcon
 import com.example.ticketopia.ui.composable.IconWithCircularShape
@@ -51,11 +50,8 @@ import com.example.ticketopia.ui.composable.TextChip
 import com.example.ticketopia.ui.composable.TextHeader
 import com.example.ticketopia.ui.navigation.navigateToBookingScreen
 import com.example.ticketopia.ui.navigation.navigateToHomeScreen
-import com.example.ticketopia.ui.screens.details.CharacterUiState
-import com.example.ticketopia.ui.screens.details.MovieDetailsUiState
 import com.example.ticketopia.ui.theme.TransGray
 import com.example.ticketopia.ui.theme.White
-import com.example.ticketopia.ui.viewmodel.MovieDetailsViewModel
 
 /**
  * Created by Aziza Helmy on 7/4/2023.
@@ -105,56 +101,56 @@ private fun MovieDetailsContent(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-                    SpacerVertical16()
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(20.dp),
+                            .padding(horizontal = 20.dp, vertical = 26.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceAround
                     ) {
-                        Column() {
-                            Text(text = "6.8/10")
-                            Text(text = "IMDb")
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(text = stringResource(R.string._6_8_10))
+                            Text(text = stringResource(R.string.imdb), color = Color.Gray)
                         }
-                        Column() {
-                            Text(text = "6.8/10")
-                            Text(text = "IMDb")
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(text = stringResource(R.string._63))
+                            Text(
+                                text = stringResource(R.string.rotten_tomatoes),
+                                color = Color.Gray
+                            )
                         }
-                        Column() {
-                            Text(text = "6.8/10")
-                            Text(text = "IMDb")
-                        }
-                    }
-                    TextHeader(text = "Fantastic Beasts: The Secrets Of Dumbledore")
-                    SpacerVertical16()
-                    MovieGenres()
-                    SpacerVertical16()
-                    LazyRow(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(70.dp),
-                        horizontalArrangement = Arrangement.spacedBy(16.dp),
-                        contentPadding = PaddingValues(horizontal = 16.dp)
-                    ) {
-                        items(state.characters) {
-                            CharacterItem(character = it)
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(text = stringResource(R.string._4_10))
+                            Text(text = stringResource(R.string.ign), color = Color.Gray)
                         }
                     }
-                    SpacerVertical16()
-                    Text(
-                        text = "Professor Albus Dumbledore must assist Newt Scamander and his partners as Grindelwald begins to lead an army to eliminate all Muggles.",
-                        fontSize = 16.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(start = 20.dp, end = 10.dp)
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    DefaultButton(
-                        text = stringResource(R.string.booking),
-                        icon = painterResource(id = R.drawable.icon_booking),
-                        modifier = Modifier.padding(bottom = 40.dp),
-                        onClick = onClickBookingIcon
-                    )
+            TextHeader(text = state.movieName)
+            MovieGenres()
+            SpacerVertical16()
+            LazyRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(70.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                contentPadding = PaddingValues(horizontal = 16.dp)
+            ) {
+                items(state.characters) {
+                    CharacterItem(character = it)
+                }
+            }
+            Text(
+                text = state.movieDescription,
+                fontSize = 16.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(start = 20.dp, end = 10.dp, top = 16.dp)
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            DefaultButton(
+                text = stringResource(R.string.booking),
+                icon = painterResource(id = R.drawable.icon_booking),
+                modifier = Modifier.padding(bottom = 40.dp),
+                onClick = onClickBookingIcon
+            )
                 }
     }
 }
@@ -187,17 +183,9 @@ private fun ToolBar(onClickExitIcon: () -> Unit) {
 
 @Composable
 fun CharacterItem(character: CharacterUiState) {
-    Image(
-        painter = rememberAsyncImagePainter(character.imageUrl),
-        contentDescription = "Character Image",
-        contentScale = ContentScale.Crop,
-        alignment = Alignment.Center,
-        modifier = Modifier
-            .size(76.dp)
-            .clip(CircleShape)
-    )
-
+    CircularImage(painter = rememberAsyncImagePainter(character.imageUrl))
 }
+
 
 @Preview(showSystemUi = true)
 @Composable
