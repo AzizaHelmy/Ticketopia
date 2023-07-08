@@ -8,12 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -31,14 +28,12 @@ import com.example.ticketopia.ui.composable.BluredImage
 import com.example.ticketopia.ui.composable.IconBottomNav
 import com.example.ticketopia.ui.composable.IconWithCircularShape
 import com.example.ticketopia.ui.composable.MovieGenres
-import com.example.ticketopia.ui.composable.SpacerHorizontal8
-import com.example.ticketopia.ui.composable.SpacerVertical16
-import com.example.ticketopia.ui.composable.SpacerVertical32
 import com.example.ticketopia.ui.composable.TextChip
 import com.example.ticketopia.ui.composable.TextHeader
+import com.example.ticketopia.ui.composable.TextWithIconStart
 import com.example.ticketopia.ui.composable.ViewPager
 import com.example.ticketopia.ui.navigation.navigateToMovieDetailsScreen
-import com.example.ticketopia.ui.viewmodel.state.HomeUiState
+import com.example.ticketopia.ui.theme.White
 
 /**
  * Created by Aziza Helmy on 7/4/2023.
@@ -82,38 +77,34 @@ private fun HomeContent(
                     isSelected = homeUiState.nowShowingChip.isSelected,
                     text = homeUiState.nowShowingChip.title,
                     isEnabled = true,
-                    doWhenClick = listener::onClickNowShowing
+                    doWhenClick = listener::onClickNowShowing,
+                    textModifier = Modifier.padding(vertical = 4.dp, horizontal = 6.dp)
                 )
                 TextChip(
                     isSelected = homeUiState.comingSoonChip.isSelected,
                     text = homeUiState.comingSoonChip.title,
                     isEnabled = true,
-                    doWhenClick = listener::onClickComingSoon
+                    unSelectedTextColor = White,
+                    doWhenClick = listener::onClickComingSoon,
+                    textModifier = Modifier.padding(vertical = 4.dp, horizontal = 6.dp)
                 )
             }
-            SpacerVertical16()
             ViewPager(
                 images = homeUiState.moviesUrl,
                 pagerState = pagerState
             )
-            SpacerVertical32()
-            Row {
-                Icon(
-                    painter = painterResource(id = R.drawable.icon_time),
-                    contentDescription = "Time Icon "
-                )
-                SpacerHorizontal8()
-                Text(text = homeUiState.duration)
-            }
-            SpacerVertical16()
+            TextWithIconStart(
+                text = homeUiState.duration,
+                painter = painterResource(id = R.drawable.icon_time)
+            )
             TextHeader(text = homeUiState.movieName)
-            SpacerVertical16()
             MovieGenres()
             Spacer(modifier = Modifier.weight(1f))
-            BottomNavigation (onClickHomeIcon=  onClickHomeIcon)
+            BottomNavigation(onClickHomeIcon = onClickHomeIcon)
         }
     }
 }
+
 
 @Composable
 private fun BottomNavigation(onClickHomeIcon: () -> Unit) {

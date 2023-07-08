@@ -15,12 +15,12 @@ import com.example.ticketopia.ui.theme.Adamina
 
 
 @Composable
-fun TextHeader(text: String) {
+fun TextHeader(text: String, modifier: Modifier = Modifier) {
     Text(
         text = text,
-//        fontFamily = Adamina,
+        fontFamily = Adamina,
         fontSize = 24.sp,
         textAlign = TextAlign.Center,
-        modifier = Modifier.padding(start = 32.dp, end = 32.dp)
+        modifier = modifier.padding(start = 32.dp, end = 32.dp, top = 16.dp, bottom = 16.dp)
     )
 }

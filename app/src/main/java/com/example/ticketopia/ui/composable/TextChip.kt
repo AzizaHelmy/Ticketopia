@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Gray
+import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.White
@@ -35,17 +35,18 @@ fun TextChip(
     unSelectedBorderColor: Color = LightGray,
     backgroundColor: Color = Orange,
     selectedTextColor: Color = White,
-    unSelectedTextColor: Color = Gray,
+    unSelectedTextColor: Color = Black,
     doWhenClick: () -> Unit = {},
-    modifier: Modifier = Modifier,
+    rowModifier: Modifier = Modifier,
+    textModifier: Modifier = Modifier,
     @DrawableRes iconId: Int? = null,
 ) {
     val shape = CircleShape
 
     Row(
-        modifier = modifier
+        modifier = rowModifier
             .padding(
-                vertical = 2.dp,
+                vertical = 4.dp,
                 horizontal = 4.dp,
             )
             .border(
@@ -75,7 +76,7 @@ fun TextChip(
         Text(
             text = text,
             color = textColor,
-            modifier = modifier.padding(start = 6.dp, end = 6.dp)
+            modifier = textModifier.padding(start = 6.dp, end = 6.dp)
         )
     }
 }

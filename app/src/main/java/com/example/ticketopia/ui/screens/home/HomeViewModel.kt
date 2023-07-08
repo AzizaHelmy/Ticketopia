@@ -1,8 +1,6 @@
 package com.example.ticketopia.ui.screens.home
 
 import androidx.lifecycle.ViewModel
-import com.example.ticketopia.ui.viewmodel.state.ChipUiState
-import com.example.ticketopia.ui.viewmodel.state.HomeUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

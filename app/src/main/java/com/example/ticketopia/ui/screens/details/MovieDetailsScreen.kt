@@ -176,7 +176,7 @@ private fun ToolBar(onClickExitIcon: () -> Unit) {
             unSelectedBorderColor = Color.Transparent,
             unSelectedTextColor = White,
             iconId = R.drawable.icon_time,
-            modifier = Modifier
+            rowModifier = Modifier
                 .clip(shape = RoundedCornerShape(16.dp))
                 .background(TransGray)
                 .border(0.dp, Color.Transparent)

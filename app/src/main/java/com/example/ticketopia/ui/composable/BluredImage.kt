@@ -12,7 +12,7 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.example.ticketopia.ui.viewmodel.state.HomeUiState
+import com.example.ticketopia.ui.screens.home.HomeUiState
 
 /**
  * Created by Aziza Helmy on 7/7/2023.
@@ -20,7 +20,7 @@ import com.example.ticketopia.ui.viewmodel.state.HomeUiState
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun BluredImage(homeUiState: HomeUiState,pagerState: PagerState) {
+fun BluredImage(homeUiState: HomeUiState, pagerState: PagerState) {
     Image(
         modifier = Modifier
             .fillMaxWidth()
