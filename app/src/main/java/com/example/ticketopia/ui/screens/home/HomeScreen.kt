@@ -1,11 +1,13 @@
-package com.example.ticketopia.ui.screens
+package com.example.ticketopia.ui.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -32,7 +34,6 @@ import com.example.ticketopia.ui.composable.SpacerVertical32
 import com.example.ticketopia.ui.composable.TextChip
 import com.example.ticketopia.ui.composable.TextHeader
 import com.example.ticketopia.ui.composable.ViewPager
-import com.example.ticketopia.ui.interactions.HomeScreenInteractionsListener
 import com.example.ticketopia.ui.navigation.navigateToMovieDetailsScreen
 import com.example.ticketopia.ui.viewmodel.HomeViewModel
 import com.example.ticketopia.ui.viewmodel.state.HomeUiState
@@ -44,7 +45,7 @@ import com.example.ticketopia.ui.viewmodel.state.HomeUiState
 @Composable
 fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
-    HomeContent(state, viewModel::updateBackgroundImage, viewModel) {
+    HomeContent(state, viewModel::updateBackgroundImage) {
         navController.navigateToMovieDetailsScreen()
     }
 }
@@ -53,7 +54,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
 private fun HomeContent(
     homeUiState: HomeUiState,
     onUpdateBackgroundImage: (String) -> Unit,
-    listener: HomeScreenInteractionsListener,
+    // listener: HomeScreenInteractionsListener,
     onClickHomeIcon: () -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
@@ -72,13 +73,13 @@ private fun HomeContent(
                     isSelected = homeUiState.nowShowingChip.isSelected,
                     text = homeUiState.nowShowingChip.title,
                     isEnabled = true,
-                    doWhenClick = listener::onClickNowShowing
+                    //doWhenClick = listener::onClickNowShowing
                 )
                 TextChip(
                     isSelected = homeUiState.comingSoonChip.isSelected,
                     text = homeUiState.comingSoonChip.title,
                     isEnabled = true,
-                    doWhenClick = listener::onClickComingSoon
+                    // doWhenClick = listener::onClickComingSoon
                 )
             }
             SpacerVertical16()
@@ -99,6 +100,7 @@ private fun HomeContent(
             TextHeader(text = homeUiState.movieName)
             SpacerVertical16()
             MovieGenres()
+            Spacer(modifier = Modifier.weight(1f))
             BottomNavigation {
                 onClickHomeIcon
             }
@@ -108,7 +110,14 @@ private fun HomeContent(
 
 @Composable
 private fun BottomNavigation(onClickHomeIcon: () -> Unit) {
-    Row() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(40.dp)
+            .padding(4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceEvenly
+    ) {
         IconWithCircularShape(
             painter = painterResource(id = R.drawable.icon_play),
             onClick = onClickHomeIcon

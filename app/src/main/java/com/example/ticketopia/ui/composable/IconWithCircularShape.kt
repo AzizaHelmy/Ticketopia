@@ -17,7 +17,11 @@ import com.example.ticketopia.ui.theme.White
  * Created by Aziza Helmy on 7/7/2023.
  */
 @Composable
-fun IconWithCircularShape(painter: Painter, modifier: Modifier = Modifier, onClick: () -> Unit) {
+fun IconWithCircularShape(
+    painter: Painter,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
+) {
     Icon(
         painter = painter,
         contentDescription = "Play Icon",

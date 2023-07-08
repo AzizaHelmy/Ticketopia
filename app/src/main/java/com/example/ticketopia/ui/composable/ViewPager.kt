@@ -5,6 +5,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.pager.HorizontalPager
@@ -29,8 +30,9 @@ fun ViewPager(
     images: List<String>,
     modifier: Modifier = Modifier,
     onUpdateBackgroundImage: ((String) -> Unit?)? = null,
-    //onClickImage:()->Unit
+    onClickImage: () -> Unit = {}
 ) {
+
     val pagerState = rememberPagerState(initialPage = 1)
 
     HorizontalPager(
@@ -55,7 +57,7 @@ fun ViewPager(
                 .scale(animatedScale)
                 .clip(MaterialTheme.shapes.extraLarge)
                 .background(color = Color.DarkGray)
-            // .clickable { onClickImage() }
+                .clickable { onClickImage() }
         )
     }
 }
